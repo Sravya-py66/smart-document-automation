@@ -59,5 +59,5 @@ This system automates the process using Machine Learning and NLP techniques:
 
 ## Author
 
-Your Name
+G. Sravya
 
