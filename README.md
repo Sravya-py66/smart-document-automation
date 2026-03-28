@@ -43,7 +43,7 @@ This system automates the process using Machine Learning and NLP techniques:
 
 ## Current Progress
 
-* [ ] Project setup
+* [ x] Project setup
 * [ ] Text extraction
 * [ ] Dataset collection
 * [ ] Model training
