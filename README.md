@@ -39,6 +39,5 @@ Manual document sorting in colleges is:
 ```text
 PDF → Text Extraction → TF-IDF → Naive Bayes → Category → Routing
 
-## Run the Project
-```bash
-streamlit run main.py
+
+ 
