@@ -6,7 +6,7 @@ import io
 import PyPDF2
 
 
-CATEGORIES = ["HR", "Finance", "Academic", "Legal"]
+CATEGORIES = ["HR", "Finance", "Academic", "Legal", "Spam"]
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 STORAGE_BASE = os.path.join(ROOT_DIR, "storage")
@@ -29,19 +29,28 @@ def extract_text(uploaded_file):
             text += page_text + "\n"
     return text.strip()
 
-
 def predict_category(text, model, vectorizer):
+    # Rule-based spam detection
+    spam_keywords = ["offer", "click", "buy now", "free", "random", "unknown", "win", "prize"]
+
+    text_lower = text.lower()
+
+    if any(word in text_lower for word in spam_keywords):
+        return "Spam"
+
+    # ML classification
     features = vectorizer.transform([text])
     return model.predict(features)[0]
-
 
 def route_file(uploaded_file, category):
     destination_folder = os.path.join(STORAGE_BASE, category)
     os.makedirs(destination_folder, exist_ok=True)
-    destination_path = os.path.join(destination_folder, uploaded_file.name)
+    import time
+    filename = f"{int(time.time())}_{uploaded_file.name}"
+    destination_path = os.path.join(destination_folder, filename)
     with open(destination_path, "wb") as f:
         f.write(uploaded_file.getvalue())
-    return destination_path
+        return destination_path
 
 
 def load_model():
